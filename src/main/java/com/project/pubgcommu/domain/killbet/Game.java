@@ -27,6 +27,9 @@ public class Game {
     @OneToMany(mappedBy = "game")
     private List<GameLog> logs = new ArrayList<>();
 
+    @OneToMany(mappedBy = "game")
+    private List<TeamGameLog> teamLogs = new ArrayList<>();
+
     @Column(nullable = false)
     private String map;
 

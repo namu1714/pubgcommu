@@ -1,5 +1,6 @@
 package com.project.pubgcommu.domain.killbet;
 
+import com.project.pubgcommu.domain.killbet.team.Team;
 import com.sun.istack.NotNull;
 import lombok.Builder;
 import lombok.Getter;
@@ -24,11 +25,11 @@ public class KillBet {
     @OneToMany(mappedBy = "killbet", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<KillBetLog> logs = new ArrayList<>();
 
+    @OneToMany(mappedBy = "killbet", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private List<Team> teams = new ArrayList<>();
+
     @Column(nullable = false)
     private Integer killgoal;
-
-    private String teamNameA;
-    private String teamNameB;
 
     @CreationTimestamp
     @Column(name = "created_date", nullable = false)
