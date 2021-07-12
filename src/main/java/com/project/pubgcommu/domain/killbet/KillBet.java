@@ -22,11 +22,14 @@ public class KillBet {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy = "killbet", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "killBet", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<KillBetLog> logs = new ArrayList<>();
 
-    @OneToMany(mappedBy = "killbet", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "killBet", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<Team> teams = new ArrayList<>();
+
+    @OneToMany(mappedBy = "killBet", cascade = {CascadeType.REMOVE})
+    private List<Game> games = new ArrayList<>();
 
     @Column(nullable = false)
     private Integer killgoal;

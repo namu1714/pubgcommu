@@ -3,7 +3,6 @@ package com.project.pubgcommu.domain.killbet;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -21,13 +20,13 @@ public class Game {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "bet_id")
+    @JoinColumn(name = "killbet_id")
     private KillBet killBet;
 
-    @OneToMany(mappedBy = "game")
+    @OneToMany(mappedBy = "game", cascade = {CascadeType.REMOVE})
     private List<GameLog> logs = new ArrayList<>();
 
-    @OneToMany(mappedBy = "game")
+    @OneToMany(mappedBy = "game", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<TeamGameLog> teamLogs = new ArrayList<>();
 
     @Column(nullable = false)

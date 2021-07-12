@@ -63,10 +63,7 @@ public class KillBetRepositoryTest {
 
         killBetLogRepository.save(KillBetLog.builder()
                 .bj(bj)
-                .killbet(killBet)
-                .totalKill(0)
-                .totalDeath(0)
-                .team("A")
+                .killBet(killBet)
                 .build());
 
         List<KillBetLog> killBetLogList = killBetLogRepository.findAll();

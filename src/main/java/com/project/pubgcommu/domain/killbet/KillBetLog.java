@@ -18,21 +18,25 @@ public class KillBetLog {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "bj_id", nullable = false)
+    @JoinColumn(name = "bj_id")
     private Bj bj;
 
     @ManyToOne
     @JoinColumn(name = "killbet_id", nullable = false)
-    private KillBet killbet;
+    private KillBet killBet;
 
     @ManyToOne
     @JoinColumn(name = "team", nullable = false)
     private Team team;
 
+    @Column(nullable = false)
+    private String gamenick;
+
     @Builder
-    public KillBetLog(Bj bj, KillBet killbet, Team team){
+    public KillBetLog(Bj bj, KillBet killBet, Team team, String gamenick){
         this.bj = bj;
-        this.killbet = killbet;
+        this.gamenick = gamenick;
+        this.killBet = killBet;
         this.team = team;
     }
 }

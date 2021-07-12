@@ -24,4 +24,8 @@ public class Bj {
         this.name = name;
         this.gamenick = gamenick;
     }
+
+    public void update(String gamenick){
+        this.gamenick = gamenick;
+    }
 }
