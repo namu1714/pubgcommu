@@ -26,7 +26,7 @@ public class KillBetLog {
     private KillBet killBet;
 
     @ManyToOne
-    @JoinColumn(name = "team", nullable = false)
+    @JoinColumn(name = "team_id", nullable = false)
     private Team team;
 
     @Column(nullable = false)
