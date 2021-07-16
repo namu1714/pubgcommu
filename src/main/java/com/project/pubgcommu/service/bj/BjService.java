@@ -25,7 +25,7 @@ public class BjService {
     public Long update(Long id, BjUpdateRequestDto requestDto){
         Bj bj = bjRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("등록된 BJ가 없습니다."));
-        bj.update(requestDto.getGamenick());
+        bj.update(requestDto.getNickname());
 
         return id;
     }
@@ -51,8 +51,8 @@ public class BjService {
         return new BjResponseDto(entity);
     }
 
-    public List<BjResponseDto> findByNick(String gamenick){
-        return bjRepository.findBjNick(gamenick).stream()
+    public List<BjResponseDto> findByNick(String nickname){
+        return bjRepository.findBjNick(nickname).stream()
                 .map(BjResponseDto::new)
                 .collect(Collectors.toList());
     }

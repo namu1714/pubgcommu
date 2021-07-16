@@ -1,13 +1,11 @@
 package com.project.pubgcommu.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.project.pubgcommu.domain.bj.Bj;
-import com.project.pubgcommu.domain.bj.BjRepository;
-import com.project.pubgcommu.domain.killbet.KillBet;
-import com.project.pubgcommu.domain.killbet.KillBetRepository;
-import com.project.pubgcommu.web.dto.bj.BjSaveRequestDto;
-import com.project.pubgcommu.web.dto.killbet.KillBetSaveRequestDto;
-import com.project.pubgcommu.web.dto.killbet.KillBetUpdateRequestDto;
+import com.project.pubgcommu.domain.killbet.team.Team;
+import com.project.pubgcommu.domain.killbet.team.TeamRepository;
+import com.project.pubgcommu.web.dto.team.TeamMemberRequestDto;
+import com.project.pubgcommu.web.dto.team.TeamSaveRequestDto;
+import com.project.pubgcommu.web.dto.team.TeamUpdateRequestDto;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,21 +18,24 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @Sql(scripts = {"classpath:data/testQuery.sql"})
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class KillBetApiControllerTests {
+public class TeamApiControllerTests {
 
     @Autowired
-    private KillBetRepository repository;
+    private TeamRepository teamRepository;
 
     @LocalServerPort
     private int port;
@@ -55,16 +56,21 @@ public class KillBetApiControllerTests {
     }
 
     @Test
-    public void saveKillBet() throws Exception {
-        //given
-        int killgoal = 90;
+    @Transactional
+    public void saveTeam() throws Exception{
+        String teamName = "team1";
+        String memberNick1 = "member1";
 
-        KillBetSaveRequestDto requestDto = KillBetSaveRequestDto.builder()
-                .killgoal(killgoal)
-                .isLive(true)
+        TeamMemberRequestDto member1 = TeamMemberRequestDto.builder().nickname(memberNick1).build();
+        List<TeamMemberRequestDto> members = Arrays.asList(new TeamMemberRequestDto[]{member1});
+
+        TeamSaveRequestDto requestDto = TeamSaveRequestDto.builder()
+                .name(teamName)
+                .killBet(1L)
+                .members(members)
                 .build();
 
-        String url = "http://localhost:" + port + "/api/killbet";
+        String url = "http://localhost:" + port + "/api/team";
 
         //when
         mvc.perform(post(url)
@@ -72,38 +78,25 @@ public class KillBetApiControllerTests {
                 .content(new ObjectMapper().writeValueAsString(requestDto)))
                 .andExpect(status().isOk());
 
-        //then
-        List<KillBet> all = repository.findAll();
-        assertThat(all.get(0).getKillgoal()).isEqualTo(killgoal);
-        assertThat(all.get(0).getIsLive()).isEqualTo(true);
+        List<Team> all = teamRepository.findAll();
+        assertThat(all.get(1).getName()).isEqualTo(teamName);
+        assertThat(all.get(1).getLogs().get(0).getNickname()).isEqualTo(memberNick1);
     }
 
     @Test
-    public void updateKillBet() throws Exception{
+    public void updateTeam() throws Exception{
         Long id = 1L;
-        int expectedKillgoal = 100;
+        String teamName = "newteam";
 
-        String url = "http://localhost:" + port + "/api/killbet/" + id;
-
-        KillBetUpdateRequestDto requestDto = KillBetUpdateRequestDto.builder()
-                .killgoal(expectedKillgoal)
-                .build();
+        TeamUpdateRequestDto requestDto = TeamUpdateRequestDto.builder().name(teamName).build();
+        String url = "http://localhost:" + port + "/api/team/" + id;
 
         mvc.perform(put(url)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(new ObjectMapper().writeValueAsString(requestDto)))
                 .andExpect(status().isOk());
 
-        List<KillBet> all = repository.findAll();
-        assertThat(all.get(0).getKillgoal()).isEqualTo(expectedKillgoal);
-    }
-
-    @Test
-    public void deleteKillBet() throws Exception{
-        Long id = 2L;
-        String url = "http://localhost:" + port + "/api/killbet/" + id;
-
-        mvc.perform(delete(url))
-                .andExpect(status().isOk());
+        Team team = teamRepository.findById(id).orElseThrow(()->new IllegalArgumentException());
+        assertThat(team.getName()).isEqualTo(teamName);
     }
 }

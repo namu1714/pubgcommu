@@ -21,10 +21,6 @@ public class GameLog {
     private Game game;
 
     @ManyToOne
-    @JoinColumn(name = "bj_id", nullable = false)
-    private Bj bj;
-
-    @ManyToOne
     @JoinColumn(name = "team", nullable = false)
     private Team team;
 
@@ -37,7 +33,6 @@ public class GameLog {
     @Builder
     public GameLog(Game game, Bj bj, Integer kill, Integer death){
         this.game = game;
-        this.bj = bj;
         this.team = team;
         this.kill = kill;
         this.death = death;

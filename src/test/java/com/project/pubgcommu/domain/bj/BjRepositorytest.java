@@ -26,7 +26,7 @@ public class BjRepositorytest {
         String bjName = "무이";
         String gamenick = "무이닉네임";
 
-        bjRepository.save(Bj.builder().name(bjName).gamenick(gamenick).build());
+        bjRepository.save(Bj.builder().name(bjName).nickname(gamenick).build());
 
         //when
         List<Bj> bjList = bjRepository.findAll();
@@ -34,7 +34,7 @@ public class BjRepositorytest {
         //then
         Bj bj = bjList.get(0);
         assertThat(bj.getName()).isEqualTo(bjName);
-        assertThat(bj.getGamenick()).isEqualTo(gamenick);
+        assertThat(bj.getNickname()).isEqualTo(gamenick);
     }
 
     @Test
@@ -46,7 +46,7 @@ public class BjRepositorytest {
         List<Bj> bjList = bjRepository.findBjNick(gamenick);
 
         //then
-        assertThat(bjList.get(0).getGamenick()).isEqualTo(gamenick);
+        assertThat(bjList.get(0).getNickname()).isEqualTo(gamenick);
     }
 
     @Test

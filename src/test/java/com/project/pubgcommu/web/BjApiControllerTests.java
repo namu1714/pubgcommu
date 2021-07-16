@@ -52,10 +52,10 @@ public class BjApiControllerTests {
     public void SaveBj() throws Exception {
         //given
         String name = "무이bj";
-        String gamenick = "무이닉넴";
+        String nickname = "무이닉넴";
         BjSaveRequestDto requestDto = BjSaveRequestDto.builder()
                 .name(name)
-                .gamenick(gamenick)
+                .nickname(nickname)
                 .build();
 
         String url = "http://localhost:" + port + "/api/bj";
@@ -69,7 +69,7 @@ public class BjApiControllerTests {
         //then
         List<Bj> all = bjRepository.findAll();
         assertThat(all.get(0).getName()).isEqualTo(name);
-        assertThat(all.get(0).getGamenick()).isEqualTo(gamenick);
+        assertThat(all.get(0).getNickname()).isEqualTo(nickname);
     }
 
     @Test
@@ -77,13 +77,13 @@ public class BjApiControllerTests {
         //given
         Bj savedBj = bjRepository.save(Bj.builder()
             .name("무이bj")
-            .gamenick("무이닉넴").build());
+            .nickname("무이닉넴").build());
 
         Long updateId = savedBj.getId();
         String expectedGamenick = "닉넴수정";
 
         BjUpdateRequestDto requestDto = BjUpdateRequestDto.builder()
-                .gamenick(expectedGamenick)
+                .nickname(expectedGamenick)
                 .build();
 
         String url = "http://localhost:" + port + "/api/bj/" + updateId;
@@ -96,6 +96,6 @@ public class BjApiControllerTests {
 
         //then
         List<Bj> all = bjRepository.findAll();
-        assertThat(all.get(0).getGamenick()).isEqualTo(expectedGamenick);
+        assertThat(all.get(0).getNickname()).isEqualTo(expectedGamenick);
     }
 }

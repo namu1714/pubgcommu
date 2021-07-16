@@ -17,15 +17,15 @@ public class Bj {
     @Column(nullable = false)
     private String name;
 
-    private String gamenick;
+    private String nickname;
 
     @Builder
-    public Bj(String name, String gamenick) {
+    public Bj(String name, String nickname) {
         this.name = name;
-        this.gamenick = gamenick;
+        this.nickname = nickname;
     }
 
-    public void update(String gamenick){
-        this.gamenick = gamenick;
+    public void update(String nickname){
+        this.nickname = nickname;
     }
 }

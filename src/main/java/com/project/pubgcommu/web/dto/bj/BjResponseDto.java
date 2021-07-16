@@ -7,11 +7,11 @@ import lombok.Getter;
 public class BjResponseDto {
     private Long id;
     private String name;
-    private String gamenick;
+    private String nickname;
 
     public BjResponseDto(Bj bj){
         this.id = bj.getId();
         this.name = bj.getName();
-        this.gamenick = bj.getGamenick();
+        this.nickname = bj.getNickname();
     }
 }

@@ -1,6 +1,7 @@
-package com.project.pubgcommu.domain.killbet;
+package com.project.pubgcommu.domain.killbet.team;
 
 import com.project.pubgcommu.domain.bj.Bj;
+import com.project.pubgcommu.domain.killbet.KillBet;
 import com.project.pubgcommu.domain.killbet.team.Team;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,7 +12,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @Entity
-public class KillBetLog {
+public class Member {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,12 +31,12 @@ public class KillBetLog {
     private Team team;
 
     @Column(nullable = false)
-    private String gamenick;
+    private String nickname;
 
     @Builder
-    public KillBetLog(Bj bj, KillBet killBet, Team team, String gamenick){
+    public Member(Bj bj, KillBet killBet, Team team, String nickname){
         this.bj = bj;
-        this.gamenick = gamenick;
+        this.nickname = nickname;
         this.killBet = killBet;
         this.team = team;
     }

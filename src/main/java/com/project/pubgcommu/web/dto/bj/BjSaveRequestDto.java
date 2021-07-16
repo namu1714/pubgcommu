@@ -9,18 +9,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class BjSaveRequestDto {
     private String name;
-    private String gamenick;
+    private String nickname;
 
     @Builder
-    public BjSaveRequestDto(String name, String gamenick){
+    public BjSaveRequestDto(String name, String nickname){
         this.name = name;
-        this.gamenick = gamenick;
+        this.nickname = nickname;
     }
 
     public Bj toEntity(){
         return Bj.builder()
                 .name(name)
-                .gamenick(gamenick)
+                .nickname(nickname)
                 .build();
     }
 }
