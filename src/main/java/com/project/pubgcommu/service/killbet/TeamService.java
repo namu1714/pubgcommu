@@ -35,20 +35,20 @@ public class TeamService {
                 .build();
 
         //팀 멤버 추가
-        for (TeamMemberRequestDto member:requestDto.getMembers()) {
-            Long bjId = member.getBj();
+        for (TeamMemberRequestDto memberDto:requestDto.getMembers()) {
+            Long bjId = memberDto.getBj();
             Bj bj = null;
 
             if(bjId != null && bjId > 0) {
                 bj = bjRepository.getById(bjId);
             }
 
-            Member log = Member.builder()
+            Member member = Member.builder()
                     .bj(bj)
-                    .nickname(member.getNickname())
-                    .killBet(killBet)
+                    .nickname(memberDto.getNickname())
                     .team(team).build();
-            team.getLogs().add(log);
+
+            team.getMembers().add(member);
         }
 
         return teamRepository.save(team).getId();

@@ -14,6 +14,7 @@ public class KillBetResponseDto {
     private boolean isLive;
     private LocalDateTime createdDate;
     private List<Long> teams;
+    private List<Long> games;
 
     public KillBetResponseDto(KillBet killBet){
         this.id = killBet.getId();
@@ -22,6 +23,9 @@ public class KillBetResponseDto {
         this.createdDate = killBet.getCreatedDate();
         this.teams = killBet.getTeams()
                 .stream().map(team->team.getId())
+                .collect(Collectors.toList());
+        this.games = killBet.getGames()
+                .stream().map(game->game.getId())
                 .collect(Collectors.toList());
     }
 }

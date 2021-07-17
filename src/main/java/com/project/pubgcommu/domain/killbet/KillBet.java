@@ -25,6 +25,9 @@ public class KillBet {
     @OneToMany(mappedBy = "killBet", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<Team> teams = new ArrayList<>();
 
+    @OneToMany(mappedBy = "killBet", cascade = {CascadeType.REMOVE})
+    private List<Game> games = new ArrayList<>();
+
     @Column(nullable = false)
     private Integer killgoal;
 

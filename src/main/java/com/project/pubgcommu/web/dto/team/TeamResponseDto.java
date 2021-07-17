@@ -17,8 +17,8 @@ public class TeamResponseDto {
         this.id = team.getId();
         this.name = team.getName();
         this.killBet = team.getKillBet().getId();
-        this.members = team.getLogs()
-                .stream().map(log -> new TeamMemberResponseDto(log))
+        this.members = team.getMembers()
+                .stream().map(member -> new TeamMemberResponseDto(member))
                 .collect(Collectors.toList());
     }
 }

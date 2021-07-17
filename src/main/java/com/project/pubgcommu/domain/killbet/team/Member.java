@@ -23,10 +23,6 @@ public class Member {
     private Bj bj;
 
     @ManyToOne
-    @JoinColumn(name = "killbet_id", nullable = false)
-    private KillBet killBet;
-
-    @ManyToOne
     @JoinColumn(name = "team_id", nullable = false)
     private Team team;
 
@@ -34,10 +30,14 @@ public class Member {
     private String nickname;
 
     @Builder
-    public Member(Bj bj, KillBet killBet, Team team, String nickname){
+    public Member(Bj bj, Team team, String nickname){
         this.bj = bj;
         this.nickname = nickname;
-        this.killBet = killBet;
         this.team = team;
+    }
+
+    public void update(Bj bj, String nickname){
+        this.bj = bj;
+        this.nickname = nickname;
     }
 }

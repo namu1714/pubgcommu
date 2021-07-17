@@ -63,7 +63,7 @@ public class KillBetRepositoryTest {
 
         memberRepository.save(Member.builder()
                 .bj(bj)
-                .killBet(killBet)
+                .nickname(nickname)
                 .build());
 
         List<Member> memberList = memberRepository.findAll();

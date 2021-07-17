@@ -1,11 +1,10 @@
 package com.project.pubgcommu.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.project.pubgcommu.domain.killbet.team.Team;
-import com.project.pubgcommu.domain.killbet.team.TeamRepository;
-import com.project.pubgcommu.web.dto.team.TeamMemberRequestDto;
-import com.project.pubgcommu.web.dto.team.TeamSaveRequestDto;
-import com.project.pubgcommu.web.dto.team.TeamUpdateRequestDto;
+import com.project.pubgcommu.domain.killbet.team.Member;
+import com.project.pubgcommu.domain.killbet.team.MemberRepository;
+import com.project.pubgcommu.web.dto.member.MemberSaveRequestDto;
+import com.project.pubgcommu.web.dto.member.MemberUpdateRequestDto;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,10 +17,8 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -32,10 +29,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @Sql(scripts = {"classpath:data/testQuery.sql"})
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class TeamApiControllerTests {
-
+public class MemberApiControllerTests {
     @Autowired
-    private TeamRepository teamRepository;
+    private MemberRepository memberRepository;
 
     @LocalServerPort
     private int port;
@@ -56,47 +52,43 @@ public class TeamApiControllerTests {
     }
 
     @Test
-    @Transactional
-    public void saveTeam() throws Exception{
-        String teamName = "team1";
-        String memberNick1 = "member1";
+    public void saveMember() throws Exception {
+        String nickname = "닉네임쓰";
+        Long bjId = 1L;
 
-        TeamMemberRequestDto member1 = TeamMemberRequestDto.builder().nickname(memberNick1).build();
-        List<TeamMemberRequestDto> members = Arrays.asList(new TeamMemberRequestDto[]{member1});
+        MemberSaveRequestDto requestDto = MemberSaveRequestDto.builder()
+                .bj(bjId)
+                .nickname(nickname)
+                .team(1L).build();
 
-        TeamSaveRequestDto requestDto = TeamSaveRequestDto.builder()
-                .name(teamName)
-                .killBet(1L)
-                .members(members)
-                .build();
+        String url = "http://localhost:" + port + "/api/member";
 
-        String url = "http://localhost:" + port + "/api/team";
-
-        //when
         mvc.perform(post(url)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(new ObjectMapper().writeValueAsString(requestDto)))
                 .andExpect(status().isOk());
 
-        List<Team> all = teamRepository.findAll();
-        assertThat(all.get(1).getName()).isEqualTo(teamName);
-        assertThat(all.get(1).getMembers().get(0).getNickname()).isEqualTo(memberNick1);
+        List<Member> all = memberRepository.findAll();
+        assertThat(all.get(0).getNickname()).isEqualTo(nickname);
     }
 
     @Test
-    public void updateTeam() throws Exception{
+    public void updateMember() throws Exception {
+        String nickname = "닉네임수정";
         Long id = 1L;
-        String teamName = "newteam";
 
-        TeamUpdateRequestDto requestDto = TeamUpdateRequestDto.builder().name(teamName).build();
-        String url = "http://localhost:" + port + "/api/team/" + id;
+        MemberUpdateRequestDto requestDto = MemberUpdateRequestDto.builder()
+                .id(id)
+                .nickname(nickname).build();
+
+        String url = "http://localhost:" + port + "/api/member/" + id;
 
         mvc.perform(put(url)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(new ObjectMapper().writeValueAsString(requestDto)))
                 .andExpect(status().isOk());
 
-        Team team = teamRepository.findById(id).orElseThrow(()->new IllegalArgumentException());
-        assertThat(team.getName()).isEqualTo(teamName);
+        List<Member> all = memberRepository.findAll();
+        assertThat(all.get(0).getNickname()).isEqualTo(nickname);
     }
 }
