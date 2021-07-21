@@ -19,7 +19,7 @@ public class BjApiController {
         return bjService.save(requestDto);
     }
 
-    @PatchMapping("/api/bj/{id}")
+    @PutMapping("/api/bj/{id}")
     public Long update(@PathVariable Long id, @RequestBody BjUpdateRequestDto requestDto){
         return bjService.update(id, requestDto);
     }

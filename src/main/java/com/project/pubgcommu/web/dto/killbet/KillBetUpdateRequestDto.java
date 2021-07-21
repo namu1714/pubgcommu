@@ -14,10 +14,4 @@ public class KillBetUpdateRequestDto {
     public KillBetUpdateRequestDto(int killgoal){
         this.killgoal = killgoal;
     }
-
-    public KillBet toEntity(){
-        return KillBet.builder()
-                .killgoal(killgoal)
-                .build();
-    }
 }

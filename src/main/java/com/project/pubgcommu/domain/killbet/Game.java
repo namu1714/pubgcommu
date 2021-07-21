@@ -26,7 +26,7 @@ public class Game {
     @OneToMany(mappedBy = "game", cascade = {CascadeType.REMOVE})
     private List<GameLog> logs = new ArrayList<>();
 
-    @OneToMany(mappedBy = "game", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "game", cascade = {CascadeType.REMOVE})
     private List<TeamGameLog> teamLogs = new ArrayList<>();
 
     @Column(nullable = false)
@@ -41,5 +41,9 @@ public class Game {
         this.killBet = killBet;
         this.map = map;
         this.createdDate = createdDate;
+    }
+
+    public void update(String map){
+        this.map = map;
     }
 }

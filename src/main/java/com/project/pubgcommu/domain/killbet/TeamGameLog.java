@@ -2,6 +2,7 @@ package com.project.pubgcommu.domain.killbet;
 
 import com.project.pubgcommu.domain.bj.Bj;
 import com.project.pubgcommu.domain.killbet.team.Team;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -20,7 +21,7 @@ public class TeamGameLog {
     private Game game;
 
     @ManyToOne
-    @JoinColumn(name = "team", nullable = false)
+    @JoinColumn(name = "team_id", nullable = false)
     private Team team;
 
     @Column(nullable = false)
@@ -29,10 +30,19 @@ public class TeamGameLog {
     @Column(nullable = false)
     private Integer stop;
 
+    @Builder
     public TeamGameLog(Game game, Team team, Integer chicken, Integer stop){
         this.game = game;
         this.team = team;
         this.chicken = chicken;
         this.stop = stop;
+    }
+
+    public void updateChicken(int add){
+        this.chicken += add;
+    }
+
+    public void updateStop(int add){
+        this.stop += add;
     }
 }
