@@ -61,7 +61,7 @@ public class KillBetApiControllerTests {
 
         KillBetSaveRequestDto requestDto = KillBetSaveRequestDto.builder()
                 .killgoal(killgoal)
-                .isLive(true)
+                .live(1)
                 .build();
 
         String url = "http://localhost:" + port + "/api/killbet";

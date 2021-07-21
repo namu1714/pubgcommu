@@ -27,7 +27,7 @@ public class GameApiController {
         return gameService.update(id, requestDto);
     }
 
-    @DeleteMapping("/api/game/id")
+    @DeleteMapping("/api/game/{id}")
     public Long delete(@PathVariable Long id){
         gameService.delete(id);
         return id;

@@ -10,8 +10,8 @@ import java.util.stream.Collectors;
 @Getter
 public class KillBetResponseDto {
     private Long id;
-    private int killgoal;
-    private boolean isLive;
+    private Integer killgoal;
+    private Integer live;
     private LocalDateTime createdDate;
     private List<Long> teams;
     private List<Long> games;
@@ -19,7 +19,7 @@ public class KillBetResponseDto {
     public KillBetResponseDto(KillBet killBet){
         this.id = killBet.getId();
         this.killgoal = killBet.getKillgoal();
-        this.isLive = killBet.getIsLive();
+        this.live = killBet.getIsLive() ? 1 : 0;
         this.createdDate = killBet.getCreatedDate();
         this.teams = killBet.getTeams()
                 .stream().map(team->team.getId())

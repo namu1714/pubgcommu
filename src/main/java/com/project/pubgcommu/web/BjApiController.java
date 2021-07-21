@@ -36,8 +36,8 @@ public class BjApiController {
     }
 
     @GetMapping("/api/bj")
-    public List<BjResponseDto> findByNick (String name){
-        return bjService.findByNick(name);
+    public List<BjResponseDto> findByNick (@RequestParam String nickname){
+        return bjService.findByNick(nickname);
     }
 
     @GetMapping("/api/bjs")

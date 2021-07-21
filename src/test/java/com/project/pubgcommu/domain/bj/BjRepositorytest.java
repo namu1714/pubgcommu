@@ -39,8 +39,10 @@ public class BjRepositorytest {
 
     @Test
     public void findByGamenick(){
-        //given
+        String bjName = "무이";
         String gamenick = "무이닉네임";
+
+        bjRepository.save(Bj.builder().name(bjName).nickname(gamenick).build());
 
         //when
         List<Bj> bjList = bjRepository.findBjNick(gamenick);

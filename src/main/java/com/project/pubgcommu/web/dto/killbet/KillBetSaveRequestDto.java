@@ -10,19 +10,19 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 public class KillBetSaveRequestDto {
-    private int killgoal;
-    private boolean isLive;
+    private Integer killgoal;
+    private Integer live;
 
     @Builder
-    public KillBetSaveRequestDto(int killgoal, boolean isLive){
+    public KillBetSaveRequestDto(Integer killgoal, Integer live){
         this.killgoal = killgoal;
-        this.isLive = isLive;
+        this.live = live;
     }
 
     public KillBet toEntity(){
         return KillBet.builder()
                 .killgoal(killgoal)
-                .isLive(isLive)
+                .isLive(this.live > 0 ? true : false)
                 .createdDate(LocalDateTime.now())
                 .build();
     }

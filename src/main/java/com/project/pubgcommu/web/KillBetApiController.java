@@ -24,13 +24,9 @@ public class KillBetApiController {
         return killBetService.update(id, requestDto);
     }
 
-    @PatchMapping("api/killbet/{id}/{live}")
+    @PatchMapping("api/killbet/{id}/live/{live}")
     public Long update(@PathVariable Long id, @PathVariable Integer live){
-        boolean isLive = false;
-        if (live == 0)
-            isLive = false;
-        else if (live == 1)
-            isLive = true;
+        boolean isLive = live > 0 ? true : false;
 
         return killBetService.updateLive(id, isLive);
     }
