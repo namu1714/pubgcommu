@@ -19,7 +19,7 @@ public class MemberApiController {
 
     @PutMapping("/api/member/{id}")
     public Long update(@PathVariable Long id, @RequestBody MemberUpdateRequestDto requestDto){
-        return memberService.update(requestDto);
+        return memberService.update(id, requestDto);
     }
 
     @GetMapping("/api/member/{id}")

@@ -38,13 +38,13 @@ public class MemberService {
     }
 
     @Transactional
-    public Long update(MemberUpdateRequestDto requestDto){
+    public Long update(Long id, MemberUpdateRequestDto requestDto){
         Bj bj = null;
         Long bjId = requestDto.getBj();
         if(bjId != null && bjId > 0)
             bj = bjRepository.getById(bjId);
 
-        Member member = memberRepository.findById(requestDto.getId())
+        Member member = memberRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 킬내기 멤버입니다."));
 
         member.update(bj, requestDto.getNickname());
