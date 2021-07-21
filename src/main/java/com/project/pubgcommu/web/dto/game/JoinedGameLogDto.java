@@ -6,10 +6,14 @@ import lombok.Getter;
 @Getter
 public class JoinedGameLogDto {
     private Long id;
-    private Long memberId;
+    private Long member;
+    private Integer kill;
+    private Integer death;
 
     public JoinedGameLogDto(GameLog log){
         this.id = log.getId();
-        this.memberId = log.getMember().getId();
+        this.member = log.getMember().getId();
+        this.kill = log.getKill();
+        this.death = log.getDeath();
     }
 }
