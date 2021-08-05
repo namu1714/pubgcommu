@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @Entity
-public class Member {
+public class Player {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,7 +30,7 @@ public class Member {
     private String nickname;
 
     @Builder
-    public Member(Bj bj, Team team, String nickname){
+    public Player(Bj bj, Team team, String nickname){
         this.bj = bj;
         this.nickname = nickname;
         this.team = team;

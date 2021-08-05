@@ -31,6 +31,9 @@ public class KillBet {
     @Column(nullable = false)
     private Integer killgoal;
 
+    @Column(nullable = false)
+    private Integer mapCycle;
+
     @CreationTimestamp
     @Column(name = "created_date", nullable = false)
     private LocalDateTime createdDate;
@@ -39,8 +42,9 @@ public class KillBet {
     private Boolean isLive;
 
     @Builder
-    public KillBet(Integer killgoal, LocalDateTime createdDate, Boolean isLive){
+    public KillBet(Integer killgoal, Integer mapCycle, LocalDateTime createdDate, Boolean isLive){
         this.killgoal = killgoal;
+        this.mapCycle = mapCycle;
         this.createdDate = createdDate;
         this.isLive = isLive;
     }

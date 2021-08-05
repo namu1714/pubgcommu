@@ -3,11 +3,11 @@ package com.project.pubgcommu.service.killbet;
 import com.project.pubgcommu.domain.bj.Bj;
 import com.project.pubgcommu.domain.bj.BjRepository;
 import com.project.pubgcommu.domain.killbet.KillBet;
-import com.project.pubgcommu.domain.killbet.team.Member;
+import com.project.pubgcommu.domain.killbet.team.Player;
 import com.project.pubgcommu.domain.killbet.KillBetRepository;
 import com.project.pubgcommu.domain.killbet.team.Team;
 import com.project.pubgcommu.domain.killbet.team.TeamRepository;
-import com.project.pubgcommu.web.dto.team.TeamMemberRequestDto;
+import com.project.pubgcommu.web.dto.team.TeamPlayerRequestDto;
 import com.project.pubgcommu.web.dto.team.TeamResponseDto;
 import com.project.pubgcommu.web.dto.team.TeamSaveRequestDto;
 import com.project.pubgcommu.web.dto.team.TeamUpdateRequestDto;
@@ -35,20 +35,20 @@ public class TeamService {
                 .build();
 
         //팀 멤버 추가
-        for (TeamMemberRequestDto memberDto:requestDto.getMembers()) {
-            Long bjId = memberDto.getBj();
+        for (TeamPlayerRequestDto playerDto:requestDto.getPlayers()) {
+            Long bjId = playerDto.getBj();
             Bj bj = null;
 
             if(bjId != null && bjId > 0) {
                 bj = bjRepository.getById(bjId);
             }
 
-            Member member = Member.builder()
+            Player player = Player.builder()
                     .bj(bj)
-                    .nickname(memberDto.getNickname())
+                    .nickname(playerDto.getNickname())
                     .team(team).build();
 
-            team.getMembers().add(member);
+            team.getPlayers().add(player);
         }
 
         return teamRepository.save(team).getId();

@@ -12,7 +12,7 @@ public class JoinedGameLogDto {
 
     public JoinedGameLogDto(GameLog log){
         this.id = log.getId();
-        this.member = log.getMember().getId();
+        this.member = log.getPlayer().getId();
         this.kill = log.getKill();
         this.death = log.getDeath();
     }

@@ -16,7 +16,7 @@ public class GameLogResponseDto {
         this.id = gameLog.getId();
         this.game = gameLog.getGame().getId();
         this.team = gameLog.getTeam().getId();
-        this.member = gameLog.getMember().getId();
+        this.member = gameLog.getPlayer().getId();
         this.kill = gameLog.getKill();
         this.death = gameLog.getDeath();
     }

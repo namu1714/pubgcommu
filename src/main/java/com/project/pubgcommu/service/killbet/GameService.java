@@ -1,7 +1,7 @@
 package com.project.pubgcommu.service.killbet;
 
 import com.project.pubgcommu.domain.killbet.*;
-import com.project.pubgcommu.domain.killbet.team.Member;
+import com.project.pubgcommu.domain.killbet.team.Player;
 import com.project.pubgcommu.domain.killbet.team.Team;
 import com.project.pubgcommu.web.dto.game.GameResponseDto;
 import com.project.pubgcommu.web.dto.game.GameSaveRequestDto;
@@ -41,11 +41,11 @@ public class GameService {
                     .chicken(0)
                     .stop(0).build());
 
-            for (Member member : team.getMembers()){
+            for (Player player : team.getPlayers()){
                 gameLogRepository.save(GameLog.builder()
                         .team(team)
                         .game(game)
-                        .member(member)
+                        .player(player)
                         .death(0)
                         .kill(0).build());
             }

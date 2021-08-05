@@ -9,9 +9,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class KillBetUpdateRequestDto {
     private int killgoal;
+    private int mapCycle;
 
     @Builder
-    public KillBetUpdateRequestDto(int killgoal){
+    public KillBetUpdateRequestDto(int killgoal, int mapCycle){
+        this.mapCycle = mapCycle;
         this.killgoal = killgoal;
     }
 }

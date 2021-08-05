@@ -1,10 +1,10 @@
 package com.project.pubgcommu.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.project.pubgcommu.domain.killbet.team.Member;
-import com.project.pubgcommu.domain.killbet.team.MemberRepository;
-import com.project.pubgcommu.web.dto.member.MemberSaveRequestDto;
-import com.project.pubgcommu.web.dto.member.MemberUpdateRequestDto;
+import com.project.pubgcommu.domain.killbet.team.Player;
+import com.project.pubgcommu.domain.killbet.team.PlayerRepository;
+import com.project.pubgcommu.web.dto.player.PlayerSaveRequestDto;
+import com.project.pubgcommu.web.dto.player.PlayerUpdateRequestDto;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,9 +29,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @Sql(scripts = {"classpath:data/testQuery.sql"})
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class MemberApiControllerTests {
+public class PlayerApiControllerTests {
     @Autowired
-    private MemberRepository memberRepository;
+    private PlayerRepository playerRepository;
 
     @LocalServerPort
     private int port;
@@ -56,7 +56,7 @@ public class MemberApiControllerTests {
         String nickname = "닉네임쓰";
         Long bjId = 1L;
 
-        MemberSaveRequestDto requestDto = MemberSaveRequestDto.builder()
+        PlayerSaveRequestDto requestDto = PlayerSaveRequestDto.builder()
                 .bj(bjId)
                 .nickname(nickname)
                 .team(1L).build();
@@ -68,7 +68,7 @@ public class MemberApiControllerTests {
                 .content(new ObjectMapper().writeValueAsString(requestDto)))
                 .andExpect(status().isOk());
 
-        List<Member> all = memberRepository.findAll();
+        List<Player> all = playerRepository.findAll();
         assertThat(all.get(0).getNickname()).isEqualTo(nickname);
     }
 
@@ -77,7 +77,7 @@ public class MemberApiControllerTests {
         String nickname = "닉네임수정";
         Long id = 1L;
 
-        MemberUpdateRequestDto requestDto = MemberUpdateRequestDto.builder()
+        PlayerUpdateRequestDto requestDto = PlayerUpdateRequestDto.builder()
                 .id(id)
                 .nickname(nickname).build();
 
@@ -88,7 +88,7 @@ public class MemberApiControllerTests {
                 .content(new ObjectMapper().writeValueAsString(requestDto)))
                 .andExpect(status().isOk());
 
-        List<Member> all = memberRepository.findAll();
+        List<Player> all = playerRepository.findAll();
         assertThat(all.get(0).getNickname()).isEqualTo(nickname);
     }
 }

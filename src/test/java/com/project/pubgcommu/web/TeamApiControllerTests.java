@@ -3,7 +3,7 @@ package com.project.pubgcommu.web;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.project.pubgcommu.domain.killbet.team.Team;
 import com.project.pubgcommu.domain.killbet.team.TeamRepository;
-import com.project.pubgcommu.web.dto.team.TeamMemberRequestDto;
+import com.project.pubgcommu.web.dto.team.TeamPlayerRequestDto;
 import com.project.pubgcommu.web.dto.team.TeamSaveRequestDto;
 import com.project.pubgcommu.web.dto.team.TeamUpdateRequestDto;
 import org.junit.Before;
@@ -61,13 +61,13 @@ public class TeamApiControllerTests {
         String teamName = "team1";
         String memberNick1 = "member1";
 
-        TeamMemberRequestDto member1 = TeamMemberRequestDto.builder().nickname(memberNick1).build();
-        List<TeamMemberRequestDto> members = Arrays.asList(new TeamMemberRequestDto[]{member1});
+        TeamPlayerRequestDto member1 = TeamPlayerRequestDto.builder().nickname(memberNick1).build();
+        List<TeamPlayerRequestDto> players = Arrays.asList(new TeamPlayerRequestDto[]{member1});
 
         TeamSaveRequestDto requestDto = TeamSaveRequestDto.builder()
                 .name(teamName)
                 .killBet(1L)
-                .members(members)
+                .players(players)
                 .build();
 
         String url = "http://localhost:" + port + "/api/team";
@@ -80,7 +80,7 @@ public class TeamApiControllerTests {
 
         List<Team> all = teamRepository.findAll();
         assertThat(all.get(1).getName()).isEqualTo(teamName);
-        assertThat(all.get(1).getMembers().get(0).getNickname()).isEqualTo(memberNick1);
+        assertThat(all.get(1).getPlayers().get(0).getNickname()).isEqualTo(memberNick1);
     }
 
     @Test

@@ -18,7 +18,7 @@ public class Team {
     private Long id;
 
     @OneToMany(mappedBy = "team", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-    private List<Member> members = new ArrayList<>();
+    private List<Player> players = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "killbet_id", nullable = false)

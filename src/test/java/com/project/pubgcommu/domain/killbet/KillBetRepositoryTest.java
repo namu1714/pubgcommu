@@ -2,8 +2,8 @@ package com.project.pubgcommu.domain.killbet;
 
 import com.project.pubgcommu.domain.bj.Bj;
 import com.project.pubgcommu.domain.bj.BjRepository;
-import com.project.pubgcommu.domain.killbet.team.Member;
-import com.project.pubgcommu.domain.killbet.team.MemberRepository;
+import com.project.pubgcommu.domain.killbet.team.Player;
+import com.project.pubgcommu.domain.killbet.team.PlayerRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,10 +26,10 @@ public class KillBetRepositoryTest {
     KillBetRepository killBetRepository;
 
     @Autowired
-    MemberRepository memberRepository;
+    PlayerRepository playerRepository;
 
     public void cleanup(){
-        memberRepository.deleteAll();
+        playerRepository.deleteAll();
         killBetRepository.deleteAll();
         bjRepository.deleteAll();
     }
@@ -61,16 +61,16 @@ public class KillBetRepositoryTest {
         KillBet killBet = killBetRepository.findById(1L)
                 .orElseThrow(()-> new IllegalArgumentException("킬내기 게시글이 존재하지 않습니다."));
 
-        memberRepository.save(Member.builder()
+        playerRepository.save(Player.builder()
                 .bj(bj)
                 .nickname(nickname)
                 .build());
 
-        List<Member> memberList = memberRepository.findAll();
-        Member member = memberList.get(0);
+        List<Player> playerList = playerRepository.findAll();
+        Player player = playerList.get(0);
 
-        assertThat(member.getBj().getName()).isEqualTo(bjName);
-        assertThat(member.getBj().getNickname()).isEqualTo(nickname);
+        assertThat(player.getBj().getName()).isEqualTo(bjName);
+        assertThat(player.getBj().getNickname()).isEqualTo(nickname);
     }
 
     @Test

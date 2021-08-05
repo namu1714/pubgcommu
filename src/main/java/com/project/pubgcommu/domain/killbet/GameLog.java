@@ -1,7 +1,6 @@
 package com.project.pubgcommu.domain.killbet;
 
-import com.project.pubgcommu.domain.bj.Bj;
-import com.project.pubgcommu.domain.killbet.team.Member;
+import com.project.pubgcommu.domain.killbet.team.Player;
 import com.project.pubgcommu.domain.killbet.team.Team;
 import lombok.Builder;
 import lombok.Getter;
@@ -26,8 +25,8 @@ public class GameLog {
     private Team team;
 
     @ManyToOne
-    @JoinColumn(name = "member_id", nullable = false)
-    private Member member;
+    @JoinColumn(name = "player_id", nullable = false)
+    private Player player;
 
     @Column(nullable = false)
     private Integer kill;
@@ -36,10 +35,10 @@ public class GameLog {
     private Integer death;
 
     @Builder
-    public GameLog(Game game, Team team, Member member, Integer kill, Integer death){
+    public GameLog(Game game, Team team, Player player, Integer kill, Integer death){
         this.game = game;
         this.team = team;
-        this.member = member;
+        this.player = player;
         this.kill = kill;
         this.death = death;
     }

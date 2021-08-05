@@ -1,5 +1,6 @@
-package com.project.pubgcommu.web.dto.team;
+package com.project.pubgcommu.web.dto.killbet;
 
+import com.project.pubgcommu.web.dto.team.TeamPlayerRequestDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,15 +9,13 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor
-public class TeamSaveRequestDto {
+public class KillBetTeamRequestDto {
     private String name;
     private List<TeamPlayerRequestDto> players;
-    private Long killBet;
 
     @Builder
-    public TeamSaveRequestDto(String name, List<TeamPlayerRequestDto> players, Long killBet){
+    public KillBetTeamRequestDto(String name, List<TeamPlayerRequestDto> players){
         this.name = name;
         this.players = players;
-        this.killBet = killBet;
     }
 }

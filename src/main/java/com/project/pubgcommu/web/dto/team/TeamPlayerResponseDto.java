@@ -1,14 +1,14 @@
 package com.project.pubgcommu.web.dto.team;
 
-import com.project.pubgcommu.domain.killbet.team.Member;
+import com.project.pubgcommu.domain.killbet.team.Player;
 import lombok.Getter;
 
 @Getter
-public class TeamMemberResponseDto {
+public class TeamPlayerResponseDto {
     private Long id;
     private String nickname;
 
-    public TeamMemberResponseDto(Member log){
+    public TeamPlayerResponseDto(Player log){
         this.id = log.getId();
         this.nickname = log.getNickname();
     }
