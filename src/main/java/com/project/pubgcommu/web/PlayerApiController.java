@@ -12,17 +12,17 @@ import org.springframework.web.bind.annotation.*;
 public class PlayerApiController {
     private final PlayerService playerService;
 
-    @PostMapping("/api/member")
+    @PostMapping("/api/player")
     public Long save(@RequestBody PlayerSaveRequestDto requestDto){
         return playerService.save(requestDto);
     }
 
-    @PutMapping("/api/member/{id}")
+    @PutMapping("/api/player/{id}")
     public Long update(@PathVariable Long id, @RequestBody PlayerUpdateRequestDto requestDto){
         return playerService.update(id, requestDto);
     }
 
-    @GetMapping("/api/member/{id}")
+    @GetMapping("/api/player/{id}")
     public PlayerResponseDto findById(@PathVariable Long id){
         return playerService.findById(id);
     }

@@ -76,7 +76,7 @@ public class KillBetService {
     public Long update(Long id, KillBetUpdateRequestDto requestDto){
         KillBet killBet = killBetRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 킬내기는 존재하지 않습니다."));
-        killBet.update(requestDto.getKillgoal());
+        killBet.update(requestDto.getKillgoal(), requestDto.getMapCycle());
 
         return id;
     }

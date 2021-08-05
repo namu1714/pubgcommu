@@ -53,7 +53,8 @@ public class KillBet {
         this.isLive = isLive;
     }
 
-    public void update(Integer killgoal){
+    public void update(Integer killgoal, Integer mapCycle){
         this.killgoal  = killgoal;
+        this.mapCycle = mapCycle;
     }
 }
