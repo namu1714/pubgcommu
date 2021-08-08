@@ -7,7 +7,8 @@ import com.project.pubgcommu.domain.killbet.team.Player;
 import com.project.pubgcommu.domain.killbet.KillBetRepository;
 import com.project.pubgcommu.domain.killbet.team.Team;
 import com.project.pubgcommu.domain.killbet.team.TeamRepository;
-import com.project.pubgcommu.web.dto.team.TeamPlayerRequestDto;
+import com.project.pubgcommu.web.dto.player.PlayerSaveRequestDto;
+import com.project.pubgcommu.web.dto.player.PlayerUpdateRequestDto;
 import com.project.pubgcommu.web.dto.team.TeamResponseDto;
 import com.project.pubgcommu.web.dto.team.TeamSaveRequestDto;
 import com.project.pubgcommu.web.dto.team.TeamUpdateRequestDto;
@@ -18,6 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @Service
 public class TeamService {
+    private final PlayerService playerService;
+
     private final TeamRepository teamRepository;
     private final KillBetRepository killBetRepository;
     private final BjRepository bjRepository;
@@ -35,7 +38,7 @@ public class TeamService {
                 .build();
 
         //팀 멤버 추가
-        for (TeamPlayerRequestDto playerDto:requestDto.getPlayers()) {
+        for (PlayerSaveRequestDto playerDto:requestDto.getPlayers()) {
             Long bjId = playerDto.getBj();
             Bj bj = null;
 
@@ -58,6 +61,11 @@ public class TeamService {
     public Long update(Long id, TeamUpdateRequestDto requestDto){
         Team team = teamRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 팀입니다."));
+
+        for(PlayerUpdateRequestDto playerDto : requestDto.getPlayers()){
+            playerService.update(playerDto.getId(), playerDto);
+        }
+
         team.update(requestDto.getName());
         return id;
     }

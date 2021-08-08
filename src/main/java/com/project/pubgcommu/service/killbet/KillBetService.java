@@ -10,9 +10,10 @@ import com.project.pubgcommu.domain.killbet.team.Team;
 import com.project.pubgcommu.domain.killbet.team.TeamRepository;
 import com.project.pubgcommu.web.dto.killbet.KillBetResponseDto;
 import com.project.pubgcommu.web.dto.killbet.KillBetSaveRequestDto;
-import com.project.pubgcommu.web.dto.killbet.KillBetTeamRequestDto;
 import com.project.pubgcommu.web.dto.killbet.KillBetUpdateRequestDto;
-import com.project.pubgcommu.web.dto.team.TeamPlayerRequestDto;
+import com.project.pubgcommu.web.dto.player.PlayerSaveRequestDto;
+import com.project.pubgcommu.web.dto.team.TeamSaveRequestDto;
+import com.project.pubgcommu.web.dto.team.TeamUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +25,9 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Service
 public class KillBetService {
+
+    private final TeamService teamService;
+
     private final KillBetRepository killBetRepository;
     private final TeamRepository teamRepository;
     private final PlayerRepository playerRepository;
@@ -40,13 +44,13 @@ public class KillBetService {
                 .build());
 
         //save team
-        for(KillBetTeamRequestDto teamRequestDto : requestDto.getTeams()){
+        for(TeamSaveRequestDto teamRequestDto : requestDto.getTeams()){
             Team team = teamRepository.save(Team.builder()
                     .killBet(killbet)
                     .name(teamRequestDto.getName())
                     .build());
 
-            for(TeamPlayerRequestDto playerRequestDto : teamRequestDto.getPlayers()){
+            for(PlayerSaveRequestDto playerRequestDto : teamRequestDto.getPlayers()){
                 Long bjId = playerRequestDto.getBj();
                 Bj bj = null;
                 if(bjId != null && bjId > 0) {
@@ -76,6 +80,11 @@ public class KillBetService {
     public Long update(Long id, KillBetUpdateRequestDto requestDto){
         KillBet killBet = killBetRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 킬내기는 존재하지 않습니다."));
+
+        for(TeamUpdateRequestDto teamDto : requestDto.getTeams()){
+            teamService.update(teamDto.getId(), teamDto);
+        }
+
         killBet.update(requestDto.getKillgoal(), requestDto.getMapCycle());
 
         return id;

@@ -1,6 +1,7 @@
 package com.project.pubgcommu.web.dto.killbet;
 
 import com.project.pubgcommu.domain.killbet.KillBet;
+import com.project.pubgcommu.web.dto.team.TeamResponseDto;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
@@ -14,7 +15,7 @@ public class KillBetResponseDto {
     private Integer live;
     private Integer mapCycle;
     private LocalDateTime createdDate;
-    private List<Long> teams;
+    private List<TeamResponseDto> teams;
     private List<Long> games;
 
     public KillBetResponseDto(KillBet killBet){
@@ -24,7 +25,7 @@ public class KillBetResponseDto {
         this.createdDate = killBet.getCreatedDate();
         this.mapCycle = killBet.getMapCycle();
         this.teams = killBet.getTeams()
-                .stream().map(team->team.getId())
+                .stream().map(TeamResponseDto::new)
                 .collect(Collectors.toList());
         this.games = killBet.getGames()
                 .stream().map(game->game.getId())

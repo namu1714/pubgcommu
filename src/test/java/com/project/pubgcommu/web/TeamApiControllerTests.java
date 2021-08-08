@@ -3,7 +3,7 @@ package com.project.pubgcommu.web;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.project.pubgcommu.domain.killbet.team.Team;
 import com.project.pubgcommu.domain.killbet.team.TeamRepository;
-import com.project.pubgcommu.web.dto.team.TeamPlayerRequestDto;
+import com.project.pubgcommu.web.dto.player.PlayerSaveRequestDto;
 import com.project.pubgcommu.web.dto.team.TeamSaveRequestDto;
 import com.project.pubgcommu.web.dto.team.TeamUpdateRequestDto;
 import org.junit.Before;
@@ -61,8 +61,8 @@ public class TeamApiControllerTests {
         String teamName = "team1";
         String memberNick1 = "member1";
 
-        TeamPlayerRequestDto member1 = TeamPlayerRequestDto.builder().nickname(memberNick1).build();
-        List<TeamPlayerRequestDto> players = Arrays.asList(new TeamPlayerRequestDto[]{member1});
+        PlayerSaveRequestDto member1 = PlayerSaveRequestDto.builder().nickname(memberNick1).build();
+        List<PlayerSaveRequestDto> players = Arrays.asList(new PlayerSaveRequestDto[]{member1});
 
         TeamSaveRequestDto requestDto = TeamSaveRequestDto.builder()
                 .name(teamName)
